@@ -42,6 +42,10 @@
   --color-accent-gold: var(--accent-gold);
   --color-accent-crimson: var(--accent-crimson);
   --color-accent-magic: var(--accent-magic);
+  
+  /* Font definitions mapping to the CSS variables from layout.tsx */
+  --font-serif: var(--font-cinzel);
+  --font-sans: var(--font-inter);
 }
 
 body {
