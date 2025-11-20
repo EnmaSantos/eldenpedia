@@ -7,7 +7,7 @@ import { Weapon } from "@/types/weapon"; // Keep the type import
 // Cast the JSON data to our Weapon type safely
 const weapons = weaponsData as Weapon[];
 import { calculateAR } from "@/lib/calculator"; // Import calculator
-import { Swords, X } from "lucide-react";
+import { Swords, X, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils"; // Assuming standard shadcn utils location, or we'll create it
 import Link from "next/link";
 
@@ -189,6 +189,14 @@ function WeaponSlot({ label, weapon, onSelect, onClear }: { label: string, weapo
                 <div className="text-right text-muted-foreground">Dex</div>
                 <div className="font-mono">{weapon.requirements.find(r => r.attribute === "Dex")?.value || "-"}</div>
             </div>
+            
+            <Link 
+                href={`/weapons/${weapon.id}`}
+                className="mt-4 inline-flex items-center gap-1 text-xs text-primary hover:underline"
+                onClick={(e) => e.stopPropagation()} // Prevent clearing/selecting
+            >
+                View Full Details <ArrowRight size={12} />
+            </Link>
           </>
         ) : (
           <>
