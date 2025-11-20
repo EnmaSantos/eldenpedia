@@ -68,26 +68,27 @@ export default function BuildEditorPage() {
     }
   }, [buildId]);
 
-  // Recalculate Level when stats change (Base logic: Level = sum of stats - 79 (approx for wretch) - but depends on class)
-  // For simplicity, we will just sum stats - 79 or use class base.
-  // A robust level calculator requires knowing the base class stats.
+  // Recalculate Level when stats change
   useEffect(() => {
     const sum = Object.values(stats).reduce((a, b) => a + b, 0);
-    // Wretch starts at Level 1 with 10 in all (Total 80). So Level = Sum - 79.
-    // We'll assume Wretch base for now unless class is selected.
-    const base = equipment.startingClass ? 
-        Number(equipment.startingClass.stats.level) - Object.values(equipment.startingClass.stats).reduce((a: any, b: any) => Number(a) + Number(b), 0) + Number(equipment.startingClass.stats.level) // This is complex math, let's simplify
-        : 79; 
+    
+    if (equipment.startingClass && equipment.startingClass.stats) {
+        const classStats = equipment.startingClass.stats;
+        const baseLevel = Number(classStats.level);
         
-    // Correct formula: Level = CurrentTotal - BaseTotal + BaseLevel
-    if (equipment.startingClass) {
-        const baseTotal = Object.values(equipment.startingClass.stats)
-            .filter((val) => !isNaN(Number(val))) // exclude "level" key if it's in there, oh wait stats object has level key
-            .reduce((a: number, b: any) => a + Number(b), 0) - Number(equipment.startingClass.stats.level);
-            
-        setLevel(sum - baseTotal + Number(equipment.startingClass.stats.level));
+        // Calculate total points in base stats (excluding the level property itself)
+        let baseStatTotal = 0;
+        STATS.forEach(stat => {
+            if (classStats[stat]) {
+                baseStatTotal += Number(classStats[stat]);
+            }
+        });
+
+        // Level = Current Stat Total - Base Stat Total + Base Level
+        setLevel(sum - baseStatTotal + baseLevel);
     } else {
-         setLevel(sum - 79); // Wretch default
+         // Wretch starts at Level 1 with 10 in all (Total 80). So Level = Sum - 79.
+         setLevel(sum - 79); 
     }
 
   }, [stats, equipment.startingClass]);
@@ -468,4 +469,3 @@ function EquipmentSlot({ item, placeholder, onClick, onClear }: any) {
         </div>
     );
 }
-
