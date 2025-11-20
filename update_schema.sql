@@ -24,3 +24,15 @@ CREATE POLICY "Users can upload their own avatar."
 CREATE POLICY "Users can update their own avatar."
   ON storage.objects FOR UPDATE
   USING ( bucket_id = 'avatars' AND auth.uid() = owner );
+
+-- Add new columns to builds table for full loadout
+ALTER TABLE builds
+ADD COLUMN IF NOT EXISTS armor_head_id text,
+ADD COLUMN IF NOT EXISTS armor_chest_id text,
+ADD COLUMN IF NOT EXISTS armor_arms_id text,
+ADD COLUMN IF NOT EXISTS armor_legs_id text,
+ADD COLUMN IF NOT EXISTS talisman_1_id text,
+ADD COLUMN IF NOT EXISTS talisman_2_id text,
+ADD COLUMN IF NOT EXISTS talisman_3_id text,
+ADD COLUMN IF NOT EXISTS talisman_4_id text,
+ADD COLUMN IF NOT EXISTS class_id text;
