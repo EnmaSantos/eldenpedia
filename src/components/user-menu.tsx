@@ -3,8 +3,9 @@
 import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
 import { AuthModal } from "./auth-modal";
-import { User, LogOut } from "lucide-react";
+import { User, LogOut, Settings } from "lucide-react";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 export function UserMenu() {
   const [user, setUser] = useState<any>(null);
@@ -77,6 +78,13 @@ export function UserMenu() {
             {/* Dropdown */}
             {menuOpen && (
               <div className="absolute right-0 top-full mt-2 w-48 bg-background border border-border rounded-lg shadow-xl py-1 z-50 animate-in fade-in zoom-in-95 duration-100">
+                <Link 
+                    href="/settings"
+                    onClick={() => setMenuOpen(false)}
+                    className="w-full text-left px-4 py-2 text-sm text-foreground hover:bg-muted flex items-center gap-2"
+                >
+                    <Settings size={14} /> Settings
+                </Link>
                 <button 
                   onClick={handleLogout}
                   className="w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-red-900/20 hover:text-red-300 flex items-center gap-2"

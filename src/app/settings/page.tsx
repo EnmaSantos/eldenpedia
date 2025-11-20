@@ -1,9 +1,9 @@
-import { supabase } from '@/lib/supabase';
+import { createClient } from '@/lib/supabase-server';
 import { redirect } from 'next/navigation';
 import SettingsForm from '@/components/SettingsForm';
 
 export default async function SettingsPage() {
-    // const supabase = createClient();
+    const supabase = await createClient();
 
     const {
         data: { user },
