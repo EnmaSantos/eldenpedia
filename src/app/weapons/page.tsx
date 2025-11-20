@@ -178,7 +178,7 @@ function WeaponSlot({ label, weapon, onSelect, onClear }: { label: string, weapo
             <Swords className="mb-4 text-primary" size={32} />
             <div className="flex items-center gap-2 justify-center mb-1">
                 <h3 className="font-serif text-xl text-center font-bold">{weapon.name}</h3>
-                {weapon.isSomber && <Sparkles size={16} className="text-purple-400" title="Somber Weapon" />}
+                {weapon.isSomber && <div title="Somber Weapon"><Sparkles size={16} className="text-purple-400" /></div>}
             </div>
             <p className="text-xs text-muted-foreground uppercase tracking-wide">{weapon.category}</p>
             
