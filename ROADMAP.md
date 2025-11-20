@@ -4,11 +4,11 @@ This document outlines the next steps to transform EldenPedia from a V1 Prototyp
 
 ## 1. Profile & Settings Management
 **Goal:** Allow users to customize their Tarnished profile beyond just a username.
-*   **[ ] Create `/settings` Page:**
+*   **[x] Create `/settings` Page:**
     *   Input fields for `username`, `bio` (or "Covenant").
     *   **Avatar Upload:** Allow users to upload a custom image to Supabase Storage instead of the generated pixel art.
     *   **Default Stats:** Allow users to set "Default Stats" (e.g., Level 150 meta) so they don't have to re-type 60 Vigor every time.
-*   **[ ] Database Update:**
+*   **[x] Database Update:**
     *   Add `bio`, `favorite_weapon_id`, `playstyle` columns to the `profiles` table.
 
 ## 2. Build Management Enhancements

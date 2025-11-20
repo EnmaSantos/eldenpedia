@@ -4,12 +4,18 @@ import { useState, useEffect } from 'react';
 import { supabase } from '@/lib/supabase';
 import { Profile } from '@/types/profile';
 import Image from 'next/image';
+import { WeaponSelector } from './weapon-selector';
+import weaponsData from '@/data/weapons.json';
+import { Weapon } from '@/types/weapon';
+
+const weapons = weaponsData as Weapon[];
 
 export default function SettingsForm({ user }: { user: any }) {
     const [loading, setLoading] = useState(true);
     const [uploading, setUploading] = useState(false);
     const [profile, setProfile] = useState<Profile | null>(null);
     const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+    const [showWeaponSelector, setShowWeaponSelector] = useState(false);
 
     useEffect(() => {
         async function getProfile() {
@@ -114,6 +120,10 @@ export default function SettingsForm({ user }: { user: any }) {
         }
     };
 
+    const selectedWeapon = profile?.favorite_weapon_id 
+        ? weapons.find(w => w.id === profile.favorite_weapon_id) 
+        : null;
+
     if (loading && !profile) {
         return <div className="text-center p-4">Loading profile...</div>;
     }
@@ -202,15 +212,52 @@ export default function SettingsForm({ user }: { user: any }) {
                 </div>
 
                 <div>
-                    <label className="block text-sm font-medium text-zinc-400 mb-1" htmlFor="favorite_weapon">Favorite Weapon ID</label>
-                    <input
-                        id="favorite_weapon"
-                        type="text"
-                        value={profile?.favorite_weapon_id || ''}
-                        onChange={(e) => setProfile({ ...profile!, favorite_weapon_id: e.target.value })}
-                        className="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-2 text-zinc-100 focus:outline-none focus:border-amber-500 transition-colors"
-                    />
+                    <label className="block text-sm font-medium text-zinc-400 mb-1">Favorite Weapon</label>
+                    
+                    {selectedWeapon ? (
+                        <div className="flex items-center gap-4 bg-zinc-800 border border-zinc-700 rounded p-3 mb-2">
+                             <div className="w-12 h-12 bg-black/40 rounded flex items-center justify-center overflow-hidden border border-zinc-700">
+                                {selectedWeapon.image ? (
+                                    <img src={selectedWeapon.image} alt={selectedWeapon.name} className="w-full h-full object-contain" />
+                                ) : (
+                                    <span className="text-zinc-600">?</span>
+                                )}
+                            </div>
+                            <div className="flex-1">
+                                <div className="font-bold text-zinc-200">{selectedWeapon.name}</div>
+                                <div className="text-xs text-zinc-500">{selectedWeapon.category}</div>
+                            </div>
+                            <button
+                                type="button"
+                                onClick={() => setShowWeaponSelector(true)}
+                                className="text-sm text-amber-500 hover:text-amber-400 hover:underline"
+                            >
+                                Change
+                            </button>
+                             <button
+                                type="button"
+                                onClick={() => setProfile({ ...profile!, favorite_weapon_id: null })}
+                                className="text-sm text-red-500 hover:text-red-400 hover:underline ml-2"
+                            >
+                                Remove
+                            </button>
+                        </div>
+                    ) : (
+                        <button
+                            type="button"
+                            onClick={() => setShowWeaponSelector(true)}
+                            className="w-full bg-zinc-800 border border-zinc-700 border-dashed rounded px-3 py-4 text-zinc-400 hover:text-zinc-200 hover:border-zinc-600 transition-all flex items-center justify-center gap-2"
+                        >
+                            <span>Select a Weapon</span>
+                        </button>
+                    )}
                 </div>
+
+                <WeaponSelector
+                    isOpen={showWeaponSelector}
+                    onClose={() => setShowWeaponSelector(false)}
+                    onSelect={(weapon) => setProfile({ ...profile!, favorite_weapon_id: weapon.id })}
+                />
 
                 <div className="border-t border-zinc-800 pt-6">
                     <h3 className="text-lg font-medium text-zinc-200 mb-4">Default Stats</h3>
