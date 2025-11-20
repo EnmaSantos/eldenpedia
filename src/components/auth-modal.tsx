@@ -53,7 +53,9 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
           password,
         });
         if (error) throw error;
-        onClose(); 
+        
+        // Force a hard reload to update server-side cookies immediately
+        window.location.reload();
       }
     } catch (err: any) {
       setError(err.message);
