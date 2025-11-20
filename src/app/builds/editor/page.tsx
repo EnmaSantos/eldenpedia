@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
-import { Save, ArrowLeft, RefreshCw, RotateCcw, Swords, Shield, User, Shirt, Check, Sparkles } from "lucide-react";
+import { Save, ArrowLeft, RefreshCw, RotateCcw, Swords, Shield, User, Shirt, Check, Sparkles, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ItemSelector } from "@/components/item-selector";
 
@@ -18,7 +18,7 @@ import classesData from "@/data/classes.json";
 // Default Stats for Calculator
 const STATS = ["vigor", "mind", "endurance", "strength", "dexterity", "intelligence", "faith", "arcane"];
 
-export default function BuildEditorPage() {
+function BuildEditorContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const buildId = searchParams.get("id"); // If present, we are editing
@@ -468,4 +468,12 @@ function EquipmentSlot({ item, placeholder, onClick, onClear }: any) {
             )}
         </div>
     );
+}
+
+export default function BuildEditorPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><Loader2 className="animate-spin text-primary" size={48} /></div>}>
+      <BuildEditorContent />
+    </Suspense>
+  );
 }
