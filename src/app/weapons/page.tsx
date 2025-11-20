@@ -12,11 +12,15 @@ import { cn } from "@/lib/utils"; // Assuming standard shadcn utils location, or
 import Link from "next/link";
 
 import { WeaponSelector } from "@/components/weapon-selector";
+import { SaveBuildModal } from "@/components/save-build-modal";
+import { Sparkles, Save } from "lucide-react";
+import { supabase } from "@/lib/supabase"; // To check login status
 
 export default function WeaponComparisonPage() {
   const [weaponA, setWeaponA] = useState<Weapon | null>(null);
   const [weaponB, setWeaponB] = useState<Weapon | null>(null);
   const [selectorOpen, setSelectorOpen] = useState<{ isOpen: boolean; slot: "A" | "B" | null }>({ isOpen: false, slot: null });
+  const [saveModalOpen, setSaveModalOpen] = useState(false);
   
   // User Stats State
   const [stats, setStats] = useState({
@@ -47,9 +51,25 @@ export default function WeaponComparisonPage() {
       />
 
       {/* Header */}
-      <header className="mb-8 flex items-center gap-4">
+      <header className="mb-8 flex items-center justify-between">
         <h1 className="text-3xl font-serif text-primary">Weapon Comparator</h1>
+        
+        {/* Save Button (only if at least one weapon selected) */}
+        {(weaponA || weaponB) && (
+            <button 
+                onClick={() => setSaveModalOpen(true)}
+                className="flex items-center gap-2 bg-secondary text-secondary-foreground px-4 py-2 rounded hover:bg-secondary/80 transition-colors text-sm font-medium"
+            >
+                <Save size={16} /> Save Loadout
+            </button>
+        )}
       </header>
+
+      <SaveBuildModal 
+        isOpen={saveModalOpen} 
+        onClose={() => setSaveModalOpen(false)}
+        buildData={{ stats, weapon_r: weaponA, weapon_l: weaponB }}
+      />
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         
@@ -156,8 +176,11 @@ function WeaponSlot({ label, weapon, onSelect, onClear }: { label: string, weapo
               <X size={16} />
             </button>
             <Swords className="mb-4 text-primary" size={32} />
-            <h3 className="font-serif text-xl text-center font-bold">{weapon.name}</h3>
-            <p className="text-xs text-muted-foreground uppercase tracking-wide mt-1">{weapon.category}</p>
+            <div className="flex items-center gap-2 justify-center mb-1">
+                <h3 className="font-serif text-xl text-center font-bold">{weapon.name}</h3>
+                {weapon.isSomber && <Sparkles size={16} className="text-purple-400" title="Somber Weapon" />}
+            </div>
+            <p className="text-xs text-muted-foreground uppercase tracking-wide">{weapon.category}</p>
             
             <div className="mt-4 grid grid-cols-2 gap-x-4 gap-y-1 text-sm w-full">
                 <div className="text-right text-muted-foreground">Str</div>

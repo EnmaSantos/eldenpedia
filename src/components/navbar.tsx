@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { Sword, Map, Home } from "lucide-react";
+import { Sword, Map, Home, Archive } from "lucide-react";
+import { UserMenu } from "@/components/user-menu";
 
 export function Navbar() {
   const pathname = usePathname();
@@ -12,6 +13,7 @@ export function Navbar() {
     { name: "Home", href: "/", icon: Home },
     { name: "Weapons", href: "/weapons", icon: Sword },
     { name: "Guide", href: "/guide", icon: Map },
+    { name: "My Builds", href: "/builds", icon: Archive }, // Re-using Home icon for now or we can import Archive
   ];
 
   return (
@@ -24,27 +26,32 @@ export function Navbar() {
         </Link>
 
         {/* Desktop Nav */}
-        <div className="flex items-center gap-1">
-          {navItems.map((item) => {
-            const Icon = item.icon;
-            const isActive = pathname === item.href;
-            
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={cn(
-                  "flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all duration-200",
-                  isActive 
-                    ? "bg-primary/10 text-primary" 
-                    : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
-                )}
-              >
-                <Icon size={16} />
-                <span className="hidden sm:inline">{item.name}</span>
-              </Link>
-            );
-          })}
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-1">
+            {navItems.map((item) => {
+              const Icon = item.icon;
+              const isActive = pathname === item.href;
+              
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={cn(
+                    "flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all duration-200",
+                    isActive 
+                      ? "bg-primary/10 text-primary" 
+                      : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                  )}
+                >
+                  <Icon size={16} />
+                  <span className="hidden sm:inline">{item.name}</span>
+                </Link>
+              );
+            })}
+          </div>
+
+          {/* User Menu */}
+          <UserMenu />
         </div>
       </div>
     </nav>

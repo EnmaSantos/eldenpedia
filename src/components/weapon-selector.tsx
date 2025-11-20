@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { Weapon } from "@/types/weapon";
 import weaponsData from "@/data/weapons.json"; // Import JSON directly
-import { Search, X } from "lucide-react";
+import { Search, X, Hexagon, Sparkles } from "lucide-react"; // Add Icons
 import { cn } from "@/lib/utils";
 
 const weapons = weaponsData as Weapon[]; // Cast to type
@@ -88,8 +88,15 @@ export function WeaponSelector({ isOpen, onClose, onSelect }: WeaponSelectorProp
 
                 {/* Info */}
                 <div className="flex-1">
-                    <h4 className="font-serif font-bold text-foreground group-hover:text-primary">{weapon.name}</h4>
-                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                    <div className="flex items-center gap-2">
+                        <h4 className="font-serif font-bold text-foreground group-hover:text-primary">{weapon.name}</h4>
+                        {weapon.isSomber && (
+                            <span className="inline-flex items-center gap-1 bg-zinc-800 text-zinc-300 text-[10px] uppercase px-1.5 py-0.5 rounded border border-zinc-700" title="Somber Weapon (Unique)">
+                                <Sparkles size={10} className="text-purple-400" /> Somber
+                            </span>
+                        )}
+                    </div>
+                    <div className="flex items-center gap-2 text-xs text-muted-foreground mt-1">
                         <span className="bg-muted px-1.5 py-0.5 rounded border border-border/50">{weapon.category}</span>
                         {weapon.damage.physical > 0 && <span>Phy: {weapon.damage.physical}</span>}
                         {weapon.damage.magic > 0 && <span className="text-blue-400">Mag: {weapon.damage.magic}</span>}
