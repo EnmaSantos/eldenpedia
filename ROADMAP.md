@@ -23,9 +23,10 @@ This document outlines the next steps to transform EldenPedia from a V1 Prototyp
 
 ## 3. Full API Integration (The "Wiki" Aspect)
 **Goal:** Use all available data endpoints to become a true encyclopedia.
-*   **[ ] Items & Consumables:**
+*   **[x] Items & Consumables:**
     *   Create `/items` page.
     *   Fetch from `/api/items`.
+    *   Added "Mechanics Guides" for Crafting, Spirits, and Smithing.
 *   **[ ] Spells & Incantations:**
     *   Create `/magic` page.
     *   Fetch from `/api/sorceries` and `/api/incantations`.

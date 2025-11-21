@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { Sword, Map, Home, Archive } from "lucide-react";
+import { Sword, Map, Home, Archive, Backpack } from "lucide-react";
 import { UserMenu } from "@/components/user-menu";
 
 export function Navbar() {
@@ -12,6 +12,7 @@ export function Navbar() {
   const navItems = [
     { name: "Home", href: "/", icon: Home },
     { name: "Weapons", href: "/weapons", icon: Sword },
+    { name: "Items", href: "/items", icon: Backpack },
     { name: "Guide", href: "/guide", icon: Map },
     { name: "My Builds", href: "/builds", icon: Archive }, // Re-using Home icon for now or we can import Archive
   ];
