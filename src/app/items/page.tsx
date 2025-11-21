@@ -19,7 +19,7 @@ export default function ItemsPage() {
   const filteredItems = searchTerm.trim() 
     ? items.filter(i => 
         i.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        i.description.toLowerCase().includes(searchTerm.toLowerCase())
+        (i.description && i.description.toLowerCase().includes(searchTerm.toLowerCase()))
       ).slice(0, 50)
     : items.slice(0, 24);
 
