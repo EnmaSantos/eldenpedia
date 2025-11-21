@@ -1,0 +1,69 @@
+[
+  {
+    "id": "sleep_pot",
+    "name": "Sleep Pot",
+    "type": "Consumable",
+    "materials": [
+      { "name": "Mushroom", "amount": 1 },
+      { "name": "Trina's Lily", "amount": 1 },
+      { "name": "Cracked Pot", "amount": 1, "reusable": true }
+    ],
+    "description": "Throws a purple haze that induces sleep."
+  },
+  {
+    "id": "fire_pot",
+    "name": "Fire Pot",
+    "type": "Consumable",
+    "materials": [
+      { "name": "Mushroom", "amount": 1 },
+      { "name": "Smoldering Butterfly", "amount": 1 },
+      { "name": "Cracked Pot", "amount": 1, "reusable": true }
+    ],
+    "description": "Throws a pot that explodes in fire."
+  },
+  {
+    "id": "exalted_flesh",
+    "name": "Exalted Flesh",
+    "type": "Consumable",
+    "materials": [
+      { "name": "Rowa Fruit", "amount": 5 },
+      { "name": "Lump of Flesh", "amount": 1 },
+      { "name": "Hefty Beast Bone", "amount": 1 },
+      { "name": "Arteria Leaf", "amount": 1 }
+    ],
+    "description": "Temporarily boosts physical attack power."
+  },
+  {
+    "id": "pickled_turtle_neck",
+    "name": "Pickled Turtle Neck",
+    "type": "Consumable",
+    "materials": [
+      { "name": "Rowa Fruit", "amount": 3 },
+      { "name": "Turtle Neck Meat", "amount": 1 },
+      { "name": "Herba", "amount": 1 }
+    ],
+    "description": "Boosts stamina recovery speed."
+  },
+  {
+    "id": "gold_pickled_fowl_foot",
+    "name": "Gold-Pickled Fowl Foot",
+    "type": "Consumable",
+    "materials": [
+      { "name": "Rowa Fruit", "amount": 3 },
+      { "name": "Four-Toed Fowl Foot", "amount": 1 },
+      { "name": "Gold Firefly", "amount": 1 }
+    ],
+    "description": "Boosts Rune acquisition for a time."
+  },
+  {
+    "id": "fire_grease",
+    "name": "Fire Grease",
+    "type": "Consumable",
+    "materials": [
+      { "name": "Root Resin", "amount": 1 },
+      { "name": "Smoldering Butterfly", "amount": 1 }
+    ],
+    "description": "Coats armament in fire."
+  }
+]
+
