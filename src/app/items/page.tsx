@@ -140,11 +140,11 @@ export default function ItemsPage() {
                     <div className="space-y-3 text-sm">
                         <div className="flex items-start gap-2">
                             <span className="font-bold text-foreground min-w-[100px]">Standard:</span>
-                            <span className="text-muted-foreground">Regular Stones (1-8) -> +25.</span>
+                            <span className="text-muted-foreground">Regular Stones (1-8) &rarr; +25.</span>
                         </div>
                         <div className="flex items-start gap-2">
                             <span className="font-bold text-foreground min-w-[100px]">Somber:</span>
-                            <span className="text-muted-foreground">Somber Stones (1-9) -> +10.</span>
+                            <span className="text-muted-foreground">Somber Stones (1-9) &rarr; +10.</span>
                         </div>
                     </div>
                 </div>
